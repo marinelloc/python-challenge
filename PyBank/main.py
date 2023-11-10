@@ -1,15 +1,14 @@
 import os
 import csv
 
-# budget_csv = os.path.join("..", "Resources", "budget_data.csv")
-budget_csv = os.path.join(r"C:\Users\marin\repo\python-challenge\PyBank\Resources\budget_data.csv")
+budget_csv = os.path.join("Resources", "budget_data.csv")
 
 # declaring variables
 months = 0
 bottomline = 0
 profit_loss = []
 month_list = []
-change = 0
+lastbudget= 0
 
 # logic for opening up csv and declaring header
 with open(budget_csv) as csvfile:
@@ -22,14 +21,21 @@ with open(budget_csv) as csvfile:
         # summing all profits/losses
         bottomline += int(row[1])
         # addinng all profit changes to list
-        profit_loss.append((int(row[1])-change))
+        profit_loss.append((int(row[1])-lastbudget))
         # storing current rows profit to be used in comparsion against next row
-        change = int(row[1])
+        lastbudget = int(row[1])
         # adding all dates to list
         month_list.append(row[0])
 
+
     #calulates average of profits/loss
-    average_change   = round(sum(profit_loss)/months)
+    index = 1
+    totalchange = 0
+    while index < len(profit_loss):
+        totalchange = totalchange + profit_loss[index]
+        index += 1
+
+    average_change   = round(totalchange/months,2)
     # finds postion in list of greastest and worst profits/losses
     greatest_index   = profit_loss.index(max(profit_loss))
     worst_index      = profit_loss.index(min(profit_loss))
@@ -43,8 +49,7 @@ with open(budget_csv) as csvfile:
     print(f'Greatest Increase in Profits: {month_list[greatest_index]} (${max(profit_loss)})')
     print(f'Greatest Decrease in Profits: {month_list[worst_index]} (${min(profit_loss)})')
 
-#results_csv = os.path.join("..", "Analysis", "results.csv")
-results_csv = os.path.join(r"C:\Users\marin\repo\python-challenge\PyBank\Analysis\results.csv")
+results_csv = os.path.join("Analysis", "results.csv")
 
 #  Open the output file
 with open(results_csv, "w") as datafile:
