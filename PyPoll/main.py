@@ -1,8 +1,7 @@
 import os
 import csv
 
-# budget_csv = os.path.join("..", "Resources", "election_data.csv")
-elec_csv = os.path.join(r"C:\Users\marin\repo\python-challenge\PyPoll\Resources\election_data.csv")
+elec_csv = os.path.join("Resources", "election_data.csv")
 
 # declaring variables
 votes = 0
@@ -61,8 +60,7 @@ with open(elec_csv) as csvfile:
     print(f'Winner: {winner}')
     print('-------------------------')
 
-# budget_csv = os.path.join("..", "Analysis", "results.csv")
-results_csv = os.path.join(r"C:\Users\marin\repo\python-challenge\PyPoll\Analysis\results.csv")
+results_csv = os.path.join("Analysis", "results.csv")
 
 #  Open the output file
 with open(results_csv, "w") as datafile:
